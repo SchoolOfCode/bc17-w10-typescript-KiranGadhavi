@@ -1,15 +1,22 @@
 const JokesBtn = document.querySelector(".jokes-btn");
 const display_jokes = document.querySelector(".jokes-display");
 
+type JokeResponse = {
+  id: string;
+  joke: string;
+  status: number;
+};
+
 async function getJokes(): Promise<string> {
   const response = await fetch("https://icanhazdadjoke.com/", {
     headers: {
       Accept: "application/json",
     },
   });
-  const data = await response.json();
+  const data: JokeResponse = await response.json();
   return data.joke;
 }
+
 async function displayJokes() {
   const joke = await getJokes();
   if (display_jokes) {
